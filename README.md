@@ -1,0 +1,2 @@
+# gowork
+go project demo
