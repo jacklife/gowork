@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="distribution"  >
+<target name="distribution">
+  <zip destfile="bin/distribution/hello-1.0-windows_amd64.zip" update="true">
+    <zipfileset includes="**" dir="bin">
+      <exclude name="antrun/**"/>
+      <exclude name="distribution/**"/>
+    </zipfileset>
+  </zip>
+  <attachartifact file="bin/distribution/hello-1.0-windows_amd64.zip" classifier="windows_amd64" type="zip"/>
+</target>
+</project>
