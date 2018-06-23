@@ -6,7 +6,7 @@ import (
 )
 
 func QueryVersion(db *sql.DB)string  {
-	rows, err := db.Query(`show server_version`)
+	rows, err := db.Query("show server_version")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -23,7 +23,7 @@ func QueryVersion(db *sql.DB)string  {
 }
 
 func queryTableCount(db *sql.DB) (float64, error) {
-	rows, err := db.Query(`select count(*) from pg_tables;`)
+	rows, err := db.Query("select count(*) from pg_tables;")
 	if err != nil {
 		return 0, err
 	}
@@ -40,7 +40,7 @@ func queryTableCount(db *sql.DB) (float64, error) {
 }
 
 func queryTotalSize(db *sql.DB) (float64, error) {
-	rows, err := db.Query(`select sum(pg_database_size(pg_database.datname)) as size from pg_database;`)
+	rows, err := db.Query("select sum(pg_database_size(pg_database.datname)) as size from pg_database;")
 	if err != nil {
 		return 0, err
 	}
@@ -57,7 +57,7 @@ func queryTotalSize(db *sql.DB) (float64, error) {
 }
 
 func queryMaxConnections(db *sql.DB) (float64, error) {
-	rows, err := db.Query(`show max_connections;`)
+	rows, err := db.Query("show max_connections;")
 	if err != nil {
 		return 0, err
 	}
@@ -74,7 +74,7 @@ func queryMaxConnections(db *sql.DB) (float64, error) {
 }
 
 func queryCurrentConnections(db *sql.DB) (float64, error) {
-	rows, err := db.Query(`select count(*) from pg_stat_activity;`)
+	rows, err := db.Query("select count(*) from pg_stat_activity;")
 	if err != nil {
 		return 0, err
 	}
@@ -91,7 +91,7 @@ func queryCurrentConnections(db *sql.DB) (float64, error) {
 }
 
 func queryActiveConnections(db *sql.DB) (float64, error) {
-	rows, err := db.Query(`select count(*)  from pg_stat_activity where not pid=pg_backend_pid();`)
+	rows, err := db.Query("select count(*)  from pg_stat_activity where not pid=pg_backend_pid();")
 	if err != nil {
 		return 0, err
 	}
@@ -108,7 +108,7 @@ func queryActiveConnections(db *sql.DB) (float64, error) {
 }
 
 func queryDBSize(db *sql.DB) (map[string]float64, error) {
-	rows, err := db.Query(`select pg_database.datname, pg_database_size(pg_database.datname) as size from pg_database;`)
+	rows, err := db.Query("select pg_database.datname, pg_database_size(pg_database.datname) as size from pg_database;")
 	if err != nil {
 		return nil, err
 	}
