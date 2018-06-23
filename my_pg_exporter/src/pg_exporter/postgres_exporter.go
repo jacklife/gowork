@@ -115,10 +115,24 @@ func main() {
 
 	exporter := NewPGExporter(&ip, &port, &version)
 
-	prometheus.MustRegister(exporter)
-	
+	reg:=prometheus.NewPedanticRegistry()
+	reg.MustRegister(exporter)
 
-	http.Handle(*metricPath, prometheus.Handler())
+	//prometheus.MustRegister(exporter)
+
+	gathers:=prometheus.Gatherers{reg}
+
+	h := promhttp.HandlerFor(gathers,
+		promhttp.HandlerOpts{
+			ErrorLog:      log.NewErrorLogger(),
+			ErrorHandling: promhttp.ContinueOnError,
+		})
+
+	http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
+		h.ServeHTTP(w, r)
+	})
+
+	//http.Handle(*metricPath, prometheus.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`<html>
 <head><title>PostgreSQL exporter</title></head>
