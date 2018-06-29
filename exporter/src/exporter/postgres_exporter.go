@@ -86,7 +86,7 @@ func (pgExporter *PGExporter) Collect(ch chan<- prometheus.Metric) {
 func (pgExporter *PGExporter) scrape() {
 	now := time.Now().UnixNano()
 
-	errCont:=pgExporter.pgMetrics.Scrape(db)
+	errCont := pgExporter.pgMetrics.Scrape(db)
 
 	pgExporter.totalScrapes.Inc()
 	pgExporter.errors.Add(errCont)
@@ -95,7 +95,7 @@ func (pgExporter *PGExporter) scrape() {
 
 func main() {
 	kingpin.Parse()
-
+	var gathers prometheus.Gatherers
 	var err error
 	connStr := "user=postgres password=123456 sslmode=disable"
 	db, err = sql.Open("postgres", connStr)
@@ -115,12 +115,16 @@ func main() {
 
 	exporter := NewPGExporter(&ip, &port, &version)
 
-	reg:=prometheus.NewPedanticRegistry()
+	reg := prometheus.NewPedanticRegistry()
 	reg.MustRegister(exporter)
 
 	//prometheus.MustRegister(exporter)
+	if *disableDefaultMetrics {
+		gathers = prometheus.Gatherers{reg}
+	}else {
+		gathers = prometheus.Gatherers{reg, prometheus.DefaultGatherer}
+	}
 
-	gathers:=prometheus.Gatherers{reg}
 
 	h := promhttp.HandlerFor(gathers,
 		promhttp.HandlerOpts{

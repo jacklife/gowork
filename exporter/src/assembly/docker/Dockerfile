@@ -1,4 +1,4 @@
-FROM zenap/alpine-glibc:3.4
+FROM  alpine:3.7
 
 ENV APP_HOME /home/exporter
 
