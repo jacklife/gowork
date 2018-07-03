@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="main"  >
-<target name="main">
-  <copy file="D:\GoProjects\src\gowork\exporter/src/assembly/docker/Dockerfile" todir="bin/distribution" verbose="false"/>
-</target>
-</project>

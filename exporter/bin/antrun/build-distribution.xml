@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="distribution"  >
 <target name="distribution">
-  <tar destfile="bin/distribution/exporter-1.0-linux_amd64.tar.gz" longfile="posix" compression="gzip">
-    <tarfileset dirmode="0755" filemode="0644" dir="bin">
+  <zip destfile="bin/distribution/exporter-1.0-windows_amd64.zip" update="true">
+    <zipfileset includes="**" dir="bin">
       <exclude name="antrun/**"/>
       <exclude name="distribution/**"/>
-      <exclude name="**/*.sh"/>
-    </tarfileset>
-    <tarfileset dirmode="0755" filemode="0755" dir="bin">
-      <include name="**/*.sh"/>
-      <include name="exporter"/>
-    </tarfileset>
-  </tar>
-  <attachartifact file="bin/distribution/exporter-1.0-linux_amd64.tar.gz" classifier="linux_amd64" type="tar.gz"/>
+    </zipfileset>
+  </zip>
+  <attachartifact file="bin/distribution/exporter-1.0-windows_amd64.zip" classifier="windows_amd64" type="zip"/>
 </target>
 </project>

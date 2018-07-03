@@ -98,6 +98,7 @@
                                                 <exclude name="antrun/**"/>
                                                 <exclude name="distribution/**"/>
                                                 <exclude name="**/*.sh"/>
+                                                <exclude name="exporter"/>
                                             </tarfileset>
                                             <tarfileset dir="${go.output}" filemode="0755"
                                                         dirmode="0755">
@@ -231,7 +232,8 @@
                         <goVersion>${go.sdk.version}</goVersion>
                         <useEnvVars>true</useEnvVars>
                         <env>
-                            <GOPATH>${basedir}</GOPATH>
+                            <!--<GOPATH>${basedir}</GOPATH>-->
+                            <GOPATH>D:\GoProjects</GOPATH>
                             <CGO_ENABLED>0</CGO_ENABLED>
                         </env>
                         <sources>${basedir}/src/${project.artifactId}</sources>
