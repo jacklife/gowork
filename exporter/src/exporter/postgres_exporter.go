@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"gowork/exporter/src/exporter/metrics"
+	"exporter/metrics"
 )
 
 const (
