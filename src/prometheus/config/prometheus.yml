@@ -35,9 +35,8 @@ scrape_configs:
 
 #    static_configs:
 #    - targets: ['localhost:9292']
-
   - job_name: 'pg'
-  file_sd_configs:
-  - files:
-  - /root/gowork/src/github.com/prometheus/prometheus/bin/config/filedisc.json
-  refresh_interval: 60s
+    file_sd_configs:
+      - files:
+        - /root/gowork/src/github.com/prometheus/prometheus/bin/config//filedisc.json
+        refresh_interval: 60s
